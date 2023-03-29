@@ -143,7 +143,9 @@ export default class Twitch {
       })
       .then((res) => {
         if (res.data.data.length === 0)
-          throw new Error("Request failed with status code 400");
+          throw new Error(
+            `No data found for ${endpoint} with params ${params}`
+          );
         return res.data;
       })
       .catch((err: AxiosError) => {
