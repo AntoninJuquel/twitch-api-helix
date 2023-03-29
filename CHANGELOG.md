@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.0.8...v0.0.10) (2023-03-29)
+
+
+### Bug Fixes
+
+* fixed files for npm to ignore ([ae96385](https://github.com/AntoninJuquel/twitch-api-helix/commit/ae96385b7ff1c83bb99d8e13c1124982f6b1dd14))
+
 ### [0.0.9](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.0.8...v0.0.9) (2023-03-29)
 
 
