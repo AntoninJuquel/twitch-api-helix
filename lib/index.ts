@@ -1,11 +1,11 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
 
 import {
   GenericTwitchResponse,
   TwitchClipRequestParams,
   TwitchGame,
   TwitchUser,
-  TwitchClipResponseBody,
+  TwitchClip,
 } from "./types";
 
 import {
@@ -44,27 +44,50 @@ export default class Twitch {
     );
   }
 
-  private async refreshToken() {
-    const response = await axios.post(ACCESS_TOKEN_ENDPOINT, {
-      client_id: this.clientId,
-      client_secret: this.clientSecret,
-      grant_type: "client_credentials",
-    });
-    const { access_token: accessToken } = response.data;
-    this.twitch.defaults.headers.Authorization = `Bearer ${accessToken}`;
+  public async refreshToken() {
+    const response = await axios
+      .post(ACCESS_TOKEN_ENDPOINT, {
+        client_id: this.clientId,
+        client_secret: this.clientSecret,
+        grant_type: "client_credentials",
+      })
+      .then((res) => {
+        const { access_token: accessToken } = res.data;
+        this.twitch.defaults.headers.Authorization = `Bearer ${accessToken}`;
+        return Promise.resolve({ message: "Token refreshed" });
+      })
+      .catch((err: AxiosError) => {
+        throw new Error(err.message);
+      });
+
+    return response;
   }
 
-  private async validateToken() {
-    const response = await axios.get(VALIDATE_TOKEN_ENDPOINT, {
-      headers: {
-        Authorization: this.twitch.defaults.headers.Authorization,
-      },
-    });
-    return response.data;
+  public async validateToken() {
+    if (this.twitch.defaults.headers.Authorization === undefined)
+      throw new Error("No token to validate");
+
+    const response = await axios
+      .get(VALIDATE_TOKEN_ENDPOINT, {
+        headers: {
+          Authorization: this.twitch.defaults.headers.Authorization,
+        },
+      })
+      .then(() => {
+        return Promise.resolve({ message: "Token validated" });
+      })
+      .catch((err: AxiosError) => {
+        throw new Error(err.message);
+      });
+    return response;
   }
 
   public get getClientId() {
     return this.clientId;
+  }
+
+  public get getClientSecret() {
+    return this.clientSecret;
   }
 
   /**
@@ -76,10 +99,6 @@ export default class Twitch {
     this.twitch.defaults.headers["Client-ID"] = clientId;
   }
 
-  public get getClientSecret() {
-    return this.clientSecret;
-  }
-
   /**
    * Set the client secret for the Twitch API
    * @param clientSecret Client secret
@@ -89,48 +108,73 @@ export default class Twitch {
   }
 
   /**
+   * Set the client ID and client secret for the Twitch API
+   * @param clientId Client ID
+   * @param clientSecret Client secret
+   * @returns Promise<{ message: string }>
+   * @throws Error if request failed
+   * @throws Error if client ID or client secret is invalid
+   * @throws Error if token refresh failed
+   * @throws Error if token validation failed
+   */
+  public async setCredentials(clientId: string, clientSecret: string) {
+    this.setClientId(clientId);
+    this.setClientSecret(clientSecret);
+    await this.refreshToken();
+    await this.validateToken();
+    return Promise.resolve({ message: "Credentials set" });
+  }
+
+  /**
    * Generic GET request to the Twitch API
    * @doc https://dev.twitch.tv/docs/api/reference/
    * @param endpoint Endpoint to request
    * @param params Query parameters
    * @returns GenericTwitchResponse<T>
+   * @throws Error if request failed
    */
   public async get<T>(
     endpoint: string,
     params: Record<string, string | number>
   ): Promise<GenericTwitchResponse<T>> {
-    const response = await this.twitch.get<GenericTwitchResponse<T>>(endpoint, {
-      params,
-    });
-    const { data } = response;
-    return data;
+    const response = await this.twitch
+      .get<GenericTwitchResponse<T>>(endpoint, {
+        params,
+      })
+      .then((res) => {
+        if (res.data.data.length === 0)
+          throw new Error("Request failed with status code 400");
+        return res.data;
+      })
+      .catch((err: AxiosError) => {
+        throw new Error(err.message);
+      });
+    return response;
   }
 
-  public async getById<T>(endpoint: string, id: string): Promise<T> {
+  public async getById<T>(endpoint: string, id: string): Promise<T[]> {
     const response = await this.get<T>(endpoint, { id });
-    return response.data[0];
+    return response.data;
   }
 
-  public async getGameByName(name: string): Promise<TwitchGame> {
+  public async getGameByName(name: string): Promise<TwitchGame[]> {
     const response = await this.get<TwitchGame>("games", {
       name,
     });
-    return response.data[0];
+    return response.data;
   }
 
-  public async getUserByName(name: string): Promise<TwitchUser> {
+  public async getUserByName(name: string): Promise<TwitchUser[]> {
     const response = await this.get<TwitchUser>("users", {
       login: name,
     });
-    return response.data[0];
+    return response.data;
   }
 
   public async getClips(
     params: TwitchClipRequestParams
-  ): Promise<TwitchClipResponseBody> {
-    const response = await this.twitch.get<TwitchClipResponseBody>("clips", {
-      params,
-    });
-    return response.data;
+  ): Promise<GenericTwitchResponse<TwitchClip>> {
+    const response = await this.get<TwitchClip>("clips", params);
+    return response;
   }
 }
