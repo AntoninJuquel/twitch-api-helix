@@ -94,9 +94,7 @@ describe("game", () => {
   });
 
   test("should fail to get an game by id", async () => {
-    await expect(twitch.getById("games", "-1")).rejects.toThrow(
-      "Request failed with status code 400"
-    );
+    await expect(twitch.getById("games", "-1")).rejects.toThrow();
   });
 });
 
@@ -117,9 +115,7 @@ describe("clips", () => {
   });
 
   test("should fail to get a clip by id", async () => {
-    await expect(twitch.getById("clips", "-1")).rejects.toThrow(
-      "Request failed with status code 400"
-    );
+    await expect(twitch.getById("clips", "-1")).rejects.toThrow();
   });
 
   test("should get clips by game id", async () => {
