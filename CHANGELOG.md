@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.1.0...v0.1.1) (2023-04-13)
+
+
+### Bug Fixes
+
+* error messages reflects twitch api ([4ab851c](https://github.com/AntoninJuquel/twitch-api-helix/commit/4ab851ca77c7f74503f354dfcfb20534b0b9d926))
+
 ### [0.0.10](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.0.8...v0.0.10) (2023-03-29)
 
 
