@@ -17,6 +17,14 @@ export type GenericTwitchResponse<T> = {
 };
 
 /**
+ *
+ */
+export type TwitchErrorResponseBody = {
+  status: number;
+  message: string;
+};
+
+/**
  * https://dev.twitch.tv/docs/api/reference/#get-users
  */
 export type TwitchUser = {

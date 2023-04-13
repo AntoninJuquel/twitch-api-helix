@@ -26,18 +26,32 @@ describe("token", () => {
     expect(response).toBeDefined();
   });
 
+  test("should auto refresh token on get", async () => {
+    twitch = new Twitch(
+      process.env.TWITCH_CLIENT_ID as string,
+      process.env.TWITCH_CLIENT_SECRET as string
+    );
+    const response = await twitch.getUserByName("Sardoche");
+    expect(response).toBeDefined();
+  });
+
+  test("should auto refresh token on validate", async () => {
+    twitch = new Twitch(
+      process.env.TWITCH_CLIENT_ID as string,
+      process.env.TWITCH_CLIENT_SECRET as string
+    );
+    const response = await twitch.validateToken();
+    expect(response).toBeDefined();
+  });
+
   test("should fail to validate token", async () => {
     twitch = new Twitch("invalid", "invalid");
-    await expect(twitch.validateToken()).rejects.toThrow(
-      "No token to validate"
-    );
+    await expect(twitch.validateToken()).rejects.toThrow("invalid client");
   });
 
   test("should fail to refresh token", async () => {
     twitch = new Twitch("invalid", "invalid");
-    await expect(twitch.refreshToken()).rejects.toThrow(
-      "Request failed with status code 400"
-    );
+    await expect(twitch.refreshToken()).rejects.toThrow("invalid client");
   });
 
   test("should set credentials", async () => {
@@ -56,6 +70,7 @@ describe("user", () => {
       process.env.TWITCH_CLIENT_ID as string,
       process.env.TWITCH_CLIENT_SECRET as string
     );
+    await twitch.refreshToken();
   });
 
   test("should get an user by name", async () => {
@@ -70,7 +85,7 @@ describe("user", () => {
 
   test("should fail to get an user by id", async () => {
     await expect(twitch.getById("users", "-1")).rejects.toThrow(
-      "Request failed with status code 400"
+      "Invalid login names, emails or IDs in request"
     );
   });
 });
@@ -81,6 +96,7 @@ describe("game", () => {
       process.env.TWITCH_CLIENT_ID as string,
       process.env.TWITCH_CLIENT_SECRET as string
     );
+    await twitch.refreshToken();
   });
 
   test("should get a game by name", async () => {
@@ -104,6 +120,7 @@ describe("clips", () => {
       process.env.TWITCH_CLIENT_ID as string,
       process.env.TWITCH_CLIENT_SECRET as string
     );
+    await twitch.refreshToken();
   });
 
   test("should get a clip by id", async () => {

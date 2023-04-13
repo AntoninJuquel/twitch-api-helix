@@ -6,6 +6,9 @@ import {
   TwitchGame,
   TwitchUser,
   TwitchClip,
+  OAuth2ValidateTokenResponseBody,
+  OAuth2TokenResponseBody,
+  TwitchErrorResponseBody,
 } from "./types";
 
 import {
@@ -34,19 +37,19 @@ export default class Twitch {
     });
     this.twitch.interceptors.response.use(
       (response) => response,
-      async (error) => {
-        if (error.response.status === 401) {
+      async (error: AxiosError<TwitchErrorResponseBody>) => {
+        if (error.response?.status === 401 && error.config) {
           await this.refreshToken();
           return this.twitch.request(error.config);
         }
-        return Promise.reject(error);
+        throw new Error(error.response?.data?.message ?? error.message);
       }
     );
   }
 
   public async refreshToken() {
     const response = await axios
-      .post(ACCESS_TOKEN_ENDPOINT, {
+      .post<OAuth2TokenResponseBody>(ACCESS_TOKEN_ENDPOINT, {
         client_id: this.clientId,
         client_secret: this.clientSecret,
         grant_type: "client_credentials",
@@ -54,31 +57,30 @@ export default class Twitch {
       .then((res) => {
         const { access_token: accessToken } = res.data;
         this.twitch.defaults.headers.Authorization = `Bearer ${accessToken}`;
-        return Promise.resolve({ message: "Token refreshed" });
+        return res;
       })
-      .catch((err: AxiosError) => {
-        throw new Error(err.message);
+      .catch((err: AxiosError<TwitchErrorResponseBody>) => {
+        throw new Error(err.response?.data?.message ?? err.message);
       });
 
     return response;
   }
 
   public async validateToken() {
-    if (this.twitch.defaults.headers.Authorization === undefined)
-      throw new Error("No token to validate");
+    if (this.twitch.defaults.headers.Authorization === undefined) {
+      await this.refreshToken();
+    }
 
     const response = await axios
-      .get(VALIDATE_TOKEN_ENDPOINT, {
+      .get<OAuth2ValidateTokenResponseBody>(VALIDATE_TOKEN_ENDPOINT, {
         headers: {
           Authorization: this.twitch.defaults.headers.Authorization,
         },
       })
-      .then(() => {
-        return Promise.resolve({ message: "Token validated" });
-      })
-      .catch((err: AxiosError) => {
-        throw new Error(err.message);
+      .catch((err: AxiosError<TwitchErrorResponseBody>) => {
+        throw new Error(err.response?.data?.message ?? err.message);
       });
+
     return response;
   }
 
@@ -120,9 +122,8 @@ export default class Twitch {
   public async setCredentials(clientId: string, clientSecret: string) {
     this.setClientId(clientId);
     this.setClientSecret(clientSecret);
-    await this.refreshToken();
-    await this.validateToken();
-    return Promise.resolve({ message: "Credentials set" });
+    const response = await this.refreshToken();
+    return response;
   }
 
   /**
@@ -144,16 +145,13 @@ export default class Twitch {
       .then((res) => {
         if (res.data.data.length === 0)
           throw new Error(
-            `No data found for ${endpoint} with params ${JSON.stringify(
-              params,
-              null,
-              2
-            )}`
+            `No data found for ${endpoint} with params 
+            ${JSON.stringify(params, null, 2)}`
           );
         return res.data;
       })
-      .catch((err: AxiosError) => {
-        throw new Error(err.message);
+      .catch((err: AxiosError<TwitchErrorResponseBody>) => {
+        throw new Error(err.response?.data?.message ?? err.message);
       });
     return response;
   }
