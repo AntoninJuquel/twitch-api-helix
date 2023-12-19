@@ -34,7 +34,7 @@ const twitchApi = new TwitchApi(
 
 ## API
 
-### [Authentication](github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/authentication.ts)
+### [Authentication](https://github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/authentication.ts)
 
 #### refreshAccessToken()
 
@@ -52,7 +52,7 @@ Validate the access token, if it is valid nothing will happen, if it is not vali
 twitchApi.authentication.validateAccessToken();
 ```
 
-### [Clips](github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/clips.ts)
+### [Clips](https://github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/clips.ts)
 
 #### getClips(TwitchClipsRequestParams) => TwitchClipsResponseBody
 
@@ -134,7 +134,7 @@ twitchApi.clips.getClips({
 });
 ```
 
-### [Games](github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/games.ts)
+### [Games](https://github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/games.ts)
 
 #### getGame(TwitchGamesRequestParams) => TwitchGamesResponseBody
 
@@ -195,7 +195,7 @@ twitchApi.games.getGame({
 });
 ```
 
-### [Users](github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/users.ts)
+### [Users](https://github.com/AntoninJuquel/twitch-api-helix/blob/master/lib/classes/users.ts)
 
 #### getUser(TwitchUsersRequestParams) => TwitchUsersResponseBody
 
