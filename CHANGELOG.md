@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.3](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.2.2...v0.2.3) (2023-12-19)
+
+
+### Bug Fixes
+
+* fix path alias compilation ([f5d18cb](https://github.com/AntoninJuquel/twitch-api-helix/commit/f5d18cbf6502c08e1d61e1d8369243cca1c9df41))
+
 ### [0.2.2](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.2.1...v0.2.2) (2023-12-19)
 
 
