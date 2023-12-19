@@ -22,12 +22,4 @@ export default class Users {
       });
     return response;
   }
-
-  public async getUserById(id: string) {
-    return this.getUser({ id });
-  }
-
-  public async getUserByLogin(login: string) {
-    return this.getUser({ login });
-  }
 }

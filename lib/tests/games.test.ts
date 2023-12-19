@@ -26,37 +26,37 @@ describe("games", () => {
   });
 
   test("should get game by id", async () => {
-    const response = await games.getGameById(destiny2GameInfo.id);
+    const response = await games.getGame({ id: destiny2GameInfo.id });
     expect(response).toBeDefined();
     expect(response.data[0]).toMatchObject(destiny2GameInfo);
   });
 
   test("should get game by name", async () => {
-    const response = await games.getGameByName(destiny2GameInfo.name);
+    const response = await games.getGame({ name: destiny2GameInfo.name });
     expect(response).toBeDefined();
     expect(response.data[0]).toMatchObject(destiny2GameInfo);
   });
 
   test("should get game by igdb_id", async () => {
-    const response = await games.getGameByIgdbId(destiny2GameInfo.igdb_id);
+    const response = await games.getGame({ igdb_id: destiny2GameInfo.igdb_id });
     expect(response).toBeDefined();
     expect(response.data[0]).toMatchObject(destiny2GameInfo);
   });
 
   test("should fail to get game by id", async () => {
-    await expect(games.getGameById("invalid")).rejects.toThrow(
+    await expect(games.getGame({ id: "invalid" })).rejects.toThrow(
       'No games found for {"id":"invalid"}'
     );
   });
 
   test("should fail to get game by name", async () => {
-    await expect(games.getGameByName("invalid")).rejects.toThrow(
+    await expect(games.getGame({ name: "invalid" })).rejects.toThrow(
       'No games found for {"name":"invalid"}'
     );
   });
 
   test("should fail to get game by igdb_id", async () => {
-    await expect(games.getGameByIgdbId("invalid")).rejects.toThrow(
+    await expect(games.getGame({ igdb_id: "invalid" })).rejects.toThrow(
       'No games found for {"igdb_id":"invalid"}'
     );
   });

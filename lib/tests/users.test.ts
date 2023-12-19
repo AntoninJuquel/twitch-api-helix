@@ -29,25 +29,25 @@ describe("users", () => {
   });
 
   test("should get user by id", async () => {
-    const response = await users.getUserById(slayerageUserInfo.id);
+    const response = await users.getUser({ id: slayerageUserInfo.id });
     expect(response).toBeDefined();
     expect(response.data[0]).toMatchObject(slayerageUserInfo);
   });
 
   test("should get user by login", async () => {
-    const response = await users.getUserByLogin(slayerageUserInfo.login);
+    const response = await users.getUser({ login: slayerageUserInfo.login });
     expect(response).toBeDefined();
     expect(response.data[0]).toMatchObject(slayerageUserInfo);
   });
 
   test("should fail to get user by id", async () => {
-    await expect(users.getUserById("invalid")).rejects.toThrow(
+    await expect(users.getUser({ id: "invalid" })).rejects.toThrow(
       "Invalid username(s), email(s), or ID(s). Bad Identifiers."
     );
   });
 
   test("should fail to get user by login", async () => {
-    await expect(users.getUserByLogin("")).rejects.toThrow(
+    await expect(users.getUser({ login: "" })).rejects.toThrow(
       "Invalid username(s), email(s), or ID(s). Bad Identifiers."
     );
   });

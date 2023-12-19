@@ -1,24 +1,20 @@
 import { AxiosError } from "axios";
 import {
-  TwitchClipsRequestParams,
-  TwitchClipsResponseBody,
   TwitchErrorResponseBody,
+  TwitchStreamsRequestParams,
+  TwitchStreamsResponseBody,
 } from "../types";
 import { twitchAxios } from "../globals";
 
-export default class Clips {
+export default class Streams {
   constructor() {}
 
-  public async getClips(params: TwitchClipsRequestParams) {
+  public async getStreams(params: TwitchStreamsRequestParams) {
     const response = await twitchAxios
-      .get<TwitchClipsResponseBody>("/clips", {
+      .get<TwitchStreamsResponseBody>("/streams", {
         params,
       })
       .then((res) => {
-        if (res.data.data.length === 0)
-          throw new Error(
-            `No clips found for ${JSON.stringify(params, null, 0)}`
-          );
         return res.data;
       })
       .catch((err: AxiosError<TwitchErrorResponseBody>) => {

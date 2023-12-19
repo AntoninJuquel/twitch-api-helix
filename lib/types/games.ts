@@ -1,4 +1,4 @@
-import { GenericTwitchResponse } from "./client";
+import { GenericTwitchResponse } from "./twitch";
 
 /**
  * https://dev.twitch.tv/docs/api/reference/#get-games

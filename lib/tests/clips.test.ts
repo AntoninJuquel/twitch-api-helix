@@ -34,39 +34,41 @@ describe("clips", () => {
   });
 
   test("should get clips by id", async () => {
-    const response = await clips.getClipsById(destiny2ClipInfo.id);
+    const response = await clips.getClips({ id: destiny2ClipInfo.id });
     expect(response).toBeDefined();
     expect(response.data[0].id).toBe(destiny2ClipInfo.id);
   });
 
   test("should get clips by game_id", async () => {
-    const response = await clips.getClipsByGameId(destiny2ClipInfo.game_id);
+    const response = await clips.getClips({
+      game_id: destiny2ClipInfo.game_id,
+    });
     expect(response).toBeDefined();
     expect(response.data[0].id).toBe(destiny2ClipInfo.id);
   });
 
   test("should get clips by broadcaster_id", async () => {
-    const response = await clips.getClipsByBroadcasterId(
-      destiny2ClipInfo.broadcaster_id
-    );
+    const response = await clips.getClips({
+      broadcaster_id: destiny2ClipInfo.broadcaster_id,
+    });
     expect(response).toBeDefined();
     expect(response.data[0].id).toBe(destiny2ClipInfo.id);
   });
 
   test("should fail to get clips by id", async () => {
-    await expect(clips.getClipsById("invalid")).rejects.toThrow(
+    await expect(clips.getClips({ id: "invalid" })).rejects.toThrow(
       'No clips found for {"id":"invalid"}'
     );
   });
 
   test("should fail to get clips by game_id", async () => {
-    await expect(clips.getClipsByGameId("invalid")).rejects.toThrow(
+    await expect(clips.getClips({ game_id: "invalid" })).rejects.toThrow(
       "invalid game id"
     );
   });
 
   test("should fail to get clips by broadcaster_id", async () => {
-    await expect(clips.getClipsByBroadcasterId("invalid")).rejects.toThrow(
+    await expect(clips.getClips({ broadcaster_id: "invalid" })).rejects.toThrow(
       'No clips found for {"broadcaster_id":"invalid"}'
     );
   });

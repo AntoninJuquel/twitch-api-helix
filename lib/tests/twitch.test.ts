@@ -1,4 +1,4 @@
-import Twitch from "../classes";
+import Twitch from "../classes/twitch";
 import { TwitchGame } from "../types";
 
 const twitch = new Twitch(
@@ -8,10 +8,10 @@ const twitch = new Twitch(
 
 describe("twitch", () => {
   test("should be defined", async () => {
-    expect(twitch.authenticationClient).toBeDefined();
-    expect(twitch.gamesClient).toBeDefined();
-    expect(twitch.clipsClient).toBeDefined();
-    expect(twitch.usersClient).toBeDefined();
+    expect(twitch.authentication).toBeDefined();
+    expect(twitch.games).toBeDefined();
+    expect(twitch.clips).toBeDefined();
+    expect(twitch.users).toBeDefined();
   });
 
   test("should get", async () => {
@@ -21,19 +21,19 @@ describe("twitch", () => {
   });
 
   test("should validate token", async () => {
-    const response = await twitch.authenticationClient.validateToken();
+    const response = await twitch.authentication.validateAccessToken();
     expect(response).toBeDefined();
     expect(response.data.expires_in).toBeDefined();
   });
 
   test("should get game", async () => {
-    const response = await twitch.gamesClient.getGame({ name: "Destiny 2" });
+    const response = await twitch.games.getGame({ name: "Destiny 2" });
     expect(response).toBeDefined();
     expect(response.data[0].name).toBe("Destiny 2");
   });
 
   test("should get clip", async () => {
-    const response = await twitch.clipsClient.getClips({
+    const response = await twitch.clips.getClips({
       broadcaster_id: "73013571",
     });
     expect(response).toBeDefined();
@@ -41,7 +41,7 @@ describe("twitch", () => {
   });
 
   test("should get user by id", async () => {
-    const response = await twitch.usersClient.getUserById("73013571");
+    const response = await twitch.users.getUser({ id: "73013571" });
     expect(response).toBeDefined();
     expect(response.data[0].id).toBe("73013571");
   });

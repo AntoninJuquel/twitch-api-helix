@@ -1,22 +1,22 @@
 import { AxiosError } from "axios";
 import {
   TwitchErrorResponseBody,
-  TwitchGamesRequestParams,
-  TwitchGamesResponseBody,
+  TwitchSearchCategoriesRequestParams,
+  TwitchSearchCategoriesResponseBody,
+  TwitchSearchChannelsRequestParams,
+  TwitchSearchChannelsResponseBody,
 } from "../types";
 import { twitchAxios } from "../globals";
 
-export default class Games {
+export default class Search {
   constructor() {}
 
-  public async getTopGames() {
+  public async searchCategories(params: TwitchSearchCategoriesRequestParams) {
     const response = await twitchAxios
-      .get<TwitchGamesResponseBody>("/games/top")
+      .get<TwitchSearchCategoriesResponseBody>("/search/categories", {
+        params,
+      })
       .then((res) => {
-        if (res.data.data.length === 0)
-          throw new Error(
-            `Top games request returned no data. This should not happen.`
-          );
         return res.data;
       })
       .catch((err: AxiosError<TwitchErrorResponseBody>) => {
@@ -25,16 +25,12 @@ export default class Games {
     return response;
   }
 
-  public async getGame(params: TwitchGamesRequestParams) {
+  public async searchChannels(params: TwitchSearchChannelsRequestParams) {
     const response = await twitchAxios
-      .get<TwitchGamesResponseBody>("/games", {
+      .get<TwitchSearchChannelsResponseBody>("/search/channels", {
         params,
       })
       .then((res) => {
-        if (res.data.data.length === 0)
-          throw new Error(
-            `No games found for ${JSON.stringify(params, null, 0)}`
-          );
         return res.data;
       })
       .catch((err: AxiosError<TwitchErrorResponseBody>) => {

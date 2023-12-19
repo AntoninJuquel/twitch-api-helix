@@ -7,21 +7,24 @@ import Authentication from "./authentication";
 import Games from "./games";
 import Clips from "./clips";
 import Users from "./users";
+import Search from "./search";
+import Streams from "./streams";
 
 export default class Twitch {
   private _authentication: Authentication;
-
   private _games: Games;
-
   private _clips: Clips;
-
   private _users: Users;
+  private _search: Search;
+  private _streams: Streams;
 
   constructor(clientId: string, clientSecret: string) {
     this._authentication = new Authentication(clientId, clientSecret);
     this._games = new Games();
     this._clips = new Clips();
     this._users = new Users();
+    this._search = new Search();
+    this._streams = new Streams();
   }
 
   async init() {
@@ -72,5 +75,13 @@ export default class Twitch {
 
   public get users() {
     return this._users;
+  }
+
+  public get search() {
+    return this._search;
+  }
+
+  public get streams() {
+    return this._streams;
   }
 }

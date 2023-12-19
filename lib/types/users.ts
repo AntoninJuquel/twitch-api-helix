@@ -1,4 +1,4 @@
-import { GenericTwitchResponse } from "./client";
+import { GenericTwitchResponse } from "./twitch";
 
 export type TwitchUsersRequestParams =
   | {
