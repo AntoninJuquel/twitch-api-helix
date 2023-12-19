@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import {
   TwitchClipsRequestParams,
+  TwitchClipsRequestAdditionalParams,
   TwitchClipsResponseBody,
   TwitchErrorResponseBody,
 } from "@/types";
@@ -9,7 +10,9 @@ import { twitchAxios } from "@/globals";
 export default class Clips {
   constructor() {}
 
-  public async getClips(params: TwitchClipsRequestParams) {
+  public async getClips(
+    params: TwitchClipsRequestParams & TwitchClipsRequestAdditionalParams
+  ) {
     const response = await twitchAxios
       .get<TwitchClipsResponseBody>("/clips", {
         params,
@@ -27,13 +30,22 @@ export default class Clips {
     return response;
   }
 
-  public async getClipsById(id: string) {
-    return this.getClips({ id });
+  public async getClipsById(
+    id: string,
+    params?: TwitchClipsRequestAdditionalParams
+  ) {
+    return this.getClips({ id, ...params });
   }
-  public async getClipsByGameId(game_id: string) {
-    return this.getClips({ game_id });
+  public async getClipsByGameId(
+    game_id: string,
+    params?: TwitchClipsRequestAdditionalParams
+  ) {
+    return this.getClips({ game_id, ...params });
   }
-  public async getClipsByBroadcasterId(broadcaster_id: string) {
-    return this.getClips({ broadcaster_id });
+  public async getClipsByBroadcasterId(
+    broadcaster_id: string,
+    params?: TwitchClipsRequestAdditionalParams
+  ) {
+    return this.getClips({ broadcaster_id, ...params });
   }
 }

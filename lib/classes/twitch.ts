@@ -9,19 +9,23 @@ import Clips from "./clips";
 import Users from "./users";
 
 export default class Twitch {
-  private authentication: Authentication;
+  private _authentication: Authentication;
 
-  private games: Games;
+  private _games: Games;
 
-  private clips: Clips;
+  private _clips: Clips;
 
-  private users: Users;
+  private _users: Users;
 
   constructor(clientId: string, clientSecret: string) {
-    this.authentication = new Authentication(clientId, clientSecret);
-    this.games = new Games();
-    this.clips = new Clips();
-    this.users = new Users();
+    this._authentication = new Authentication(clientId, clientSecret);
+    this._games = new Games();
+    this._clips = new Clips();
+    this._users = new Users();
+  }
+
+  async init() {
+    await this._authentication.validateAccessToken();
   }
 
   /**
@@ -54,19 +58,19 @@ export default class Twitch {
     return response;
   }
 
-  public get authenticationClient() {
-    return this.authentication;
+  public get authentication() {
+    return this._authentication;
   }
 
-  public get gamesClient() {
-    return this.games;
+  public get games() {
+    return this._games;
   }
 
-  public get clipsClient() {
-    return this.clips;
+  public get clips() {
+    return this._clips;
   }
 
-  public get usersClient() {
-    return this.users;
+  public get users() {
+    return this._users;
   }
 }

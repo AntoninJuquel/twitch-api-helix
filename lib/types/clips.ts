@@ -1,9 +1,9 @@
-import { GenericTwitchResponse } from './client';
+import { GenericTwitchResponse } from "./client";
 
 /**
  * https://dev.twitch.tv/docs/api/reference/#get-clips
  */
-export type TwitchClipsRequestParams = (
+export type TwitchClipsRequestParams =
   | {
       broadcaster_id: string;
     }
@@ -12,8 +12,9 @@ export type TwitchClipsRequestParams = (
     }
   | {
       id: string;
-    }
-) & {
+    };
+
+export type TwitchClipsRequestAdditionalParams = {
   first?: number;
   started_at?: string;
   ended_at?: string;
