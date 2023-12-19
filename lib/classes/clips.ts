@@ -4,8 +4,8 @@ import {
   TwitchClipsRequestAdditionalParams,
   TwitchClipsResponseBody,
   TwitchErrorResponseBody,
-} from "@/types";
-import { twitchAxios } from "@/globals";
+} from "../types";
+import { twitchAxios } from "../globals";
 
 export default class Clips {
   constructor() {}

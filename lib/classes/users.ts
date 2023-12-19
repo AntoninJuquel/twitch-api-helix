@@ -3,8 +3,8 @@ import {
   TwitchErrorResponseBody,
   TwitchUsersRequestParams,
   TwitchUsersResponseBody,
-} from "@/types";
-import { twitchAxios } from "@/globals";
+} from "../types";
+import { twitchAxios } from "../globals";
 
 export default class Users {
   constructor() {}

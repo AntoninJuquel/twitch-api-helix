@@ -4,13 +4,13 @@ import {
   OAuth2ValidateTokenResponseBody,
   OAuth2TokenResponseBody,
   TwitchErrorResponseBody,
-} from "@/types";
+} from "../types";
 
 import {
   ACCESS_TOKEN_ENDPOINT,
   VALIDATE_TOKEN_ENDPOINT,
   twitchAxios,
-} from "@/globals";
+} from "../globals";
 
 export default class Authentication {
   constructor(private clientId: string, private clientSecret: string) {

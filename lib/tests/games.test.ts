@@ -1,5 +1,5 @@
-import Games from "@/classes/games";
-import { twitchAxios } from "@/globals";
+import Games from "../classes/games";
+import { twitchAxios } from "../globals";
 
 const destiny2GameInfo = {
   id: "497057",

@@ -1,4 +1,4 @@
-import Authentication from "@/classes/authentication";
+import Authentication from "../classes/authentication";
 
 const authentication = new Authentication(
   process.env.TWITCH_CLIENT_ID as string,

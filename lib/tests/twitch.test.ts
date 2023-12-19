@@ -1,5 +1,5 @@
-import Twitch from "@/classes";
-import { TwitchGame } from "@/types";
+import Twitch from "../classes";
+import { TwitchGame } from "../types";
 
 const twitch = new Twitch(
   process.env.TWITCH_CLIENT_ID as string,

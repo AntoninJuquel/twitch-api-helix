@@ -3,8 +3,8 @@ import {
   TwitchErrorResponseBody,
   TwitchGamesRequestParams,
   TwitchGamesResponseBody,
-} from "@/types";
-import { twitchAxios } from "@/globals";
+} from "../types";
+import { twitchAxios } from "../globals";
 
 export default class Games {
   constructor() {}

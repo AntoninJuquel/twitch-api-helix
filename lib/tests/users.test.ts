@@ -1,5 +1,5 @@
-import Users from "@/classes/users";
-import { twitchAxios } from "@/globals";
+import Users from "../classes/users";
+import { twitchAxios } from "../globals";
 
 const slayerageUserInfo = {
   id: "73013571",

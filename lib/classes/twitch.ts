@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
 
-import { GenericTwitchResponse, TwitchErrorResponseBody } from "@/types";
-import { twitchAxios } from "@/globals";
+import { GenericTwitchResponse, TwitchErrorResponseBody } from "../types";
+import { twitchAxios } from "../globals";
 
 import Authentication from "./authentication";
 import Games from "./games";

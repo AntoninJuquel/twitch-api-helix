@@ -1,5 +1,5 @@
-import Clips from "@/classes/clips";
-import { twitchAxios } from "@/globals";
+import Clips from "../classes/clips";
+import { twitchAxios } from "../globals";
 
 const destiny2ClipInfo = {
   id: "FaithfulNurturingCarabeefBIRB",
