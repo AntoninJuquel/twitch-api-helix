@@ -25,7 +25,7 @@ export default class Twitch {
   }
 
   async init() {
-    await this._authentication.validateAccessToken();
+    await this._authentication.refreshAccessToken();
   }
 
   /**
