@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.2.4...v0.2.5) (2023-12-19)
+
+
+### Features
+
+* added streams and search components ([a253000](https://github.com/AntoninJuquel/twitch-api-helix/commit/a25300028f903debef0fdcadf7cf7c4758732207))
+
 ### [0.2.4](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.2.3...v0.2.4) (2023-12-19)
 
 
