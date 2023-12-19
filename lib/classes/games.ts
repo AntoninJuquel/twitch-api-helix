@@ -1,17 +1,17 @@
 import { AxiosError } from "axios";
 import {
   TwitchErrorResponseBody,
-  TwitchGameRequestParams,
-  TwitchGameResponseBody,
-} from "../types";
-import { twitchAxios } from "../globals";
+  TwitchGamesRequestParams,
+  TwitchGamesResponseBody,
+} from "@/types";
+import { twitchAxios } from "@/globals";
 
 export default class Games {
   constructor() {}
 
   public async getTopGames() {
     const response = await twitchAxios
-      .get<TwitchGameResponseBody>("/games/top")
+      .get<TwitchGamesResponseBody>("/games/top")
       .then((res) => {
         if (res.data.data.length === 0)
           throw new Error(
@@ -25,9 +25,9 @@ export default class Games {
     return response;
   }
 
-  public async getGame(params: TwitchGameRequestParams) {
+  public async getGame(params: TwitchGamesRequestParams) {
     const response = await twitchAxios
-      .get<TwitchGameResponseBody>("/games", {
+      .get<TwitchGamesResponseBody>("/games", {
         params,
       })
       .then((res) => {

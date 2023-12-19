@@ -3,7 +3,7 @@ import { GenericTwitchResponse } from './client';
 /**
  * https://dev.twitch.tv/docs/api/reference/#get-clips
  */
-export type TwitchClipRequestParams = (
+export type TwitchClipsRequestParams = (
   | {
       broadcaster_id: string;
     }
@@ -43,4 +43,4 @@ export type TwitchClip = {
 /**
  * https://dev.twitch.tv/docs/api/reference/#get-clips
  */
-export type TwitchClipResponseBody = GenericTwitchResponse<TwitchClip>;
+export type TwitchClipsResponseBody = GenericTwitchResponse<TwitchClip>;

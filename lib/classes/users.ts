@@ -1,17 +1,17 @@
 import { AxiosError } from "axios";
 import {
   TwitchErrorResponseBody,
-  TwitchUserRequestParams,
-  TwitchUserResponseBody,
-} from "../types";
-import { twitchAxios } from "../globals";
+  TwitchUsersRequestParams,
+  TwitchUsersResponseBody,
+} from "@/types";
+import { twitchAxios } from "@/globals";
 
 export default class Users {
   constructor() {}
 
-  public async getUser(params: TwitchUserRequestParams) {
+  public async getUser(params: TwitchUsersRequestParams) {
     const response = await twitchAxios
-      .get<TwitchUserResponseBody>("/users", {
+      .get<TwitchUsersResponseBody>("/users", {
         params,
       })
       .then((res) => {

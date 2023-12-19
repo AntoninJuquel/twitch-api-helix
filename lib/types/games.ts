@@ -3,7 +3,7 @@ import { GenericTwitchResponse } from "./client";
 /**
  * https://dev.twitch.tv/docs/api/reference/#get-games
  */
-export type TwitchGameRequestParams =
+export type TwitchGamesRequestParams =
   | {
       id: string;
     }
@@ -21,4 +21,4 @@ export type TwitchGame = {
   igdb_id?: number;
 };
 
-export type TwitchGameResponseBody = GenericTwitchResponse<TwitchGame>;
+export type TwitchGamesResponseBody = GenericTwitchResponse<TwitchGame>;

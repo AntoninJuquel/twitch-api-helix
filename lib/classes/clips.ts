@@ -1,17 +1,17 @@
 import { AxiosError } from "axios";
 import {
-  TwitchClipRequestParams,
-  TwitchClipResponseBody,
+  TwitchClipsRequestParams,
+  TwitchClipsResponseBody,
   TwitchErrorResponseBody,
-} from "../types";
-import { twitchAxios } from "../globals";
+} from "@/types";
+import { twitchAxios } from "@/globals";
 
 export default class Clips {
   constructor() {}
 
-  public async getClips(params: TwitchClipRequestParams) {
+  public async getClips(params: TwitchClipsRequestParams) {
     const response = await twitchAxios
-      .get<TwitchClipResponseBody>("/clips", {
+      .get<TwitchClipsResponseBody>("/clips", {
         params,
       })
       .then((res) => {

@@ -1,6 +1,6 @@
 import { GenericTwitchResponse } from "./client";
 
-export type TwitchUserRequestParams =
+export type TwitchUsersRequestParams =
   | {
       id: string;
     }
@@ -24,4 +24,4 @@ export type TwitchUser = {
   created_at: string;
 };
 
-export type TwitchUserResponseBody = GenericTwitchResponse<TwitchUser>;
+export type TwitchUsersResponseBody = GenericTwitchResponse<TwitchUser>;

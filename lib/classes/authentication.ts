@@ -4,13 +4,13 @@ import {
   OAuth2ValidateTokenResponseBody,
   OAuth2TokenResponseBody,
   TwitchErrorResponseBody,
-} from "../types";
+} from "@/types";
 
 import {
   ACCESS_TOKEN_ENDPOINT,
   VALIDATE_TOKEN_ENDPOINT,
   twitchAxios,
-} from "../globals";
+} from "@/globals";
 
 export default class Authentication {
   constructor(private clientId: string, private clientSecret: string) {
@@ -19,7 +19,7 @@ export default class Authentication {
       async (response) => response,
       async (error: AxiosError<TwitchErrorResponseBody>) => {
         if (error.response?.status === 401 && error.config) {
-          const response = await this.refreshToken();
+          const response = await this.refreshAccessToken();
           error.config.headers.Authorization = `Bearer ${response.data.access_token}`;
           return twitchAxios.request(error.config);
         }
@@ -28,7 +28,7 @@ export default class Authentication {
     );
   }
 
-  public async refreshToken() {
+  public async refreshAccessToken() {
     const response = await axios
       .post<OAuth2TokenResponseBody>(ACCESS_TOKEN_ENDPOINT, {
         client_id: this.clientId,
@@ -47,9 +47,9 @@ export default class Authentication {
     return response;
   }
 
-  public async validateToken() {
+  public async validateAccessToken() {
     if (twitchAxios.defaults.headers.Authorization === undefined) {
-      await this.refreshToken();
+      await this.refreshAccessToken();
     }
 
     const response = await axios
@@ -103,7 +103,7 @@ export default class Authentication {
   public async setClientIdClientSecret(clientId: string, clientSecret: string) {
     this.setClientId(clientId);
     this.setClientSecret(clientSecret);
-    const response = await this.refreshToken();
+    const response = await this.refreshAccessToken();
 
     return response;
   }

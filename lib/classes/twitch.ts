@@ -1,12 +1,12 @@
 import { AxiosError } from "axios";
 
-import { GenericTwitchResponse, TwitchErrorResponseBody } from "../types";
+import { GenericTwitchResponse, TwitchErrorResponseBody } from "@/types";
+import { twitchAxios } from "@/globals";
 
 import Authentication from "./authentication";
 import Games from "./games";
 import Clips from "./clips";
 import Users from "./users";
-import { twitchAxios } from "../globals";
 
 export default class Twitch {
   private authentication: Authentication;
@@ -44,7 +44,7 @@ export default class Twitch {
         if (res.data.data.length === 0)
           throw new Error(
             `No data found for ${endpoint} with params 
-              ${JSON.stringify(params, null, 2)}`
+                ${JSON.stringify(params, null, 2)}`
           );
         return res.data;
       })
