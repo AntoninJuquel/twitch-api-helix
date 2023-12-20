@@ -9,7 +9,7 @@ export const VALIDATE_TOKEN_ENDPOINT = `${OAUTH2_PREFIX}/validate`;
 export const twitchAxios = axios.create({
   baseURL: API_PREFIX,
   headers: {
-    "Client-ID": process?.env?.TWITCH_CLIENT_ID || "",
-    Authorization: `Bearer ${process?.env?.TWITCH_ACCESS_TOKEN || ""}`,
+    "Client-ID": "",
+    Authorization: "",
   },
 });
