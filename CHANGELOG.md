@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.6](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.2.5...v0.2.6) (2023-12-20)
+
+
+### Bug Fixes
+
+* export the new classes ([90434a1](https://github.com/AntoninJuquel/twitch-api-helix/commit/90434a170a8bca0f21ff4cb188e24a1b4d30f52b))
+* undefined process handler ([472730f](https://github.com/AntoninJuquel/twitch-api-helix/commit/472730f5ce99f2de02794b8772a10108168dab81))
+
 ### [0.2.5](https://github.com/AntoninJuquel/twitch-api-helix/compare/v0.2.4...v0.2.5) (2023-12-19)
 
 
